@@ -1,0 +1,141 @@
+/**
+ * Professional Hero Section Styling
+ * Scoped locally via CSS Modules
+ * Designed for a Robotics & AI textbook
+ */
+
+ 
+.heroBanner {
+  position: relative;
+  padding: 6rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+
+  /* Professional tech gradient */
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #020617 50%,
+    #020617 100%
+  );
+
+  color: #e5e7eb;
+}
+
+/* Subtle background grid + glow effect */
+.heroBanner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(139, 92, 246, 0.12), transparent 45%);
+  z-index: 0;
+}
+
+/* Content stays above background effects */
+.heroBanner :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Main title */
+.heroBanner h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: #f9fafb;
+}
+
+/* Subtitle / tagline */
+.heroBanner p {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #cbd5f5;
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Primary button */
+.buttons :global(.button--primary) {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  border: none;
+  color: #020617;
+  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.buttons :global(.button--primary):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.35);
+}
+
+/* Secondary button */
+.buttons :global(.button--secondary) {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e5e7eb;
+  padding: 0.75rem 1.8rem;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.buttons :global(.button--secondary):hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 4rem 1rem;
+  }
+
+  .heroBanner h1 {
+    font-size: 2.4rem;
+  }
+
+  .heroBanner p {
+    font-size: 1.05rem;
+  }
+}
+
+/* Chat section styling */
+.chatSection {
+  padding: 3rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    #f0f9ff 0%,
+    #e0f2fe 100%
+  );
+}
+
+.chatSection h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 996px) {
+  .chatSection {
+    padding: 2rem 1rem;
+  }
+
+  .chatSection h2 {
+    font-size: 1.5rem;
+  }
+}

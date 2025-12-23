@@ -1,55 +1,70 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- SYNC IMPACT REPORT
+Version change: 1.1.0 → 1.2.0 (minor update - new RAG chatbot principles added)
+Modified principles: Added Global RAG Chatbot Constitution section with specific rules
+Added sections: RAG Chatbot Constitution with Source Restriction, No Hallucination, Citation and Grounding, and Educational Tone rules
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md ⚠ pending review
+  - .specify/templates/spec-template.md ⚠ pending review
+  - .specify/templates/tasks-template.md ⚠ pending review
+  - .specify/templates/commands/*.md ⚠ pending review
+  - README.md ⚠ pending review
+Follow-up TODOs: None
+-->
+
+# Educational AI & Robotics Textbook Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Progressive Learning Structure
+Start from basic concepts and gradually move to advanced topics. Each chapter must build on previous knowledge. Include clear learning objectives at the start of each chapter. Prerequisites for each chapter must be explicitly stated. Difficulty curves must be carefully managed to avoid overwhelming readers.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Practical and Hands-On Approach
+Provide real, working examples instead of only theory. Include code snippets, commands, and small projects. Encourage experimentation and problem-solving. All code examples must be tested and functional. Include hands-on exercises, programming assignments, and practical examples.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Comprehensive Robotics Platforms Coverage
+Cover ROS 2 concepts including nodes, topics, services, and actions. Explain simulation using Gazebo. Include Unity for visualization and interaction. Cover NVIDIA Isaac for advanced robotics simulation and AI integration. Ensure content addresses multiple platforms to provide broad exposure.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Student-Friendly Explanations
+Use simple and easy language. Explain technical terms with examples. Connect topics with real-world applications. Provide alternative text for images and multiple presentation formats. Use inclusive language and examples that resonate with diverse audiences.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Interactive and Engaging Presentation
+Leverage Docusaurus capabilities for rich multimedia content including diagrams, videos, interactive simulations, and 3D models. Include hands-on exercises, programming assignments, and practical examples. Encourage active learning through interactive elements and real-world applications.
 
-### [PRINCIPLE_6_NAME]
+### VI. Modular and Accessible Content
+Structure content in modular, self-contained units that can be reused across different courses and curricula. Each module should be independently accessible while maintaining coherence within the broader textbook. Enable customization for different academic programs and skill levels.
 
+## Global RAG Chatbot Constitution
 
-[PRINCIPLE__DESCRIPTION]
+The RAG chatbot is an integral part of this book project and must strictly follow these rules at all times:
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### 1. Source Restriction Rule
+The chatbot MUST answer questions using ONLY the content retrieved from the book's approved knowledge base (Docusaurus content indexed in Qdrant).
+If relevant information is not found, the chatbot MUST clearly say:
+"I do not have enough information in this book to answer this question."
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### 2. No Hallucination Rule
+The chatbot MUST NOT guess, assume, invent, or fabricate information.
+If content is missing, outdated, or unclear, the chatbot MUST refuse politely.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### 3. Citation and Grounding Rule
+All factual answers MUST be grounded in retrieved passages.
+The chatbot should base its responses strictly on retrieved vectors and not general world knowledge.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### 4. Educational Tone Rule
+The chatbot MUST respond in a clear, simple, and educational tone suitable for book readers and learners.
+Overly complex language, unnecessary jargon, and advanced concepts without proper context must be avoided.
+
+## Technology Stack Requirements
+
+All development must utilize the specified technology stack: Docusaurus for static site generation, supporting responsive, searchable documentation compatible across devices. Build processes must be automated and reproducible. Content must be version-controlled and support collaborative authoring workflows.
+
+## Quality Assurance Standards
+
+All content undergoes rigorous peer review before publication. Technical accuracy is validated by subject matter experts. Code examples must be tested in multiple environments. Content must pass accessibility audits. Automated testing ensures build integrity and link validation.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution governs all aspects of the Educational AI & Robotics textbook project. All contributors must comply with these principles. Amendments require documented justification and community consensus. Content must align with educational objectives and maintain scientific integrity.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.2.0 | **Ratified**: 2025-12-13 | **Last Amended**: 2025-12-18

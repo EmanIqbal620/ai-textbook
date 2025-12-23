@@ -1,0 +1,288 @@
+openapi: 3.0.3
+info:
+  title: RAG Agent API
+  description: API for the Humanoid Robotics AI textbook RAG chatbot
+  version: 1.0.0
+  contact:
+    name: Humanoid Robotics Team
+    email: team@example.com
+
+servers:
+  - url: https://your-deployment-url.com/api/v1
+    description: Production server
+  - url: http://localhost:8000/api/v1
+    description: Development server
+
+paths:
+  /chat:
+    post:
+      summary: Chat with the RAG agent
+      description: Process a user query using RAG methodology with context from the humanoid robotics textbook
+      operationId: chat_with_rag_agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response from the RAG agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - chat
+
+  /query:
+    post:
+      summary: Alternative query endpoint with more options
+      description: Similar to /chat but may include additional parameters for fine-tuning
+      operationId: query_with_options
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response from the RAG agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - chat
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Verify that the service and all dependencies are accessible
+      operationId: health_check
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - health
+
+  /stats:
+    get:
+      summary: Get usage statistics
+      description: Retrieve usage statistics from the database
+      operationId: get_usage_stats
+      responses:
+        '200':
+          description: Usage statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - analytics
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The user's question
+          example: "What is humanoid robotics?"
+        user_id:
+          type: string
+          description: Optional user identifier
+          example: "user123"
+        max_tokens:
+          type: integer
+          description: Maximum tokens in the response
+          default: 1000
+          minimum: 100
+          maximum: 4000
+        temperature:
+          type: number
+          description: Temperature for response generation
+          default: 0.7
+          minimum: 0
+          maximum: 1
+        top_k:
+          type: integer
+          description: Number of context chunks to retrieve
+          default: 5
+          minimum: 1
+          maximum: 20
+        user_selected_text:
+          type: string
+          description: Optional text selected by user from the website
+          example: "This is the selected text from the page..."
+
+    ChatResponse:
+      type: object
+      required:
+        - response
+        - sources
+        - response_time
+        - query
+      properties:
+        response:
+          type: string
+          description: The generated response from the RAG agent
+          example: "Humanoid robotics is a branch of robotics focused on creating robots with human-like characteristics..."
+        sources:
+          type: array
+          description: List of sources used to generate the response
+          items:
+            $ref: '#/components/schemas/Source'
+        response_time:
+          type: number
+          description: Time taken to process the request in seconds
+          example: 1.25
+        query:
+          type: string
+          description: Echo of the original query
+          example: "What is humanoid robotics?"
+
+    Source:
+      type: object
+      required:
+        - id
+        - source
+        - score
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the source document
+          example: "doc_12345"
+        source:
+          type: string
+          description: URL or file path of the source
+          example: "https://humanoid-robotics-textbook.com/introduction"
+        score:
+          type: number
+          description: Relevance score from vector similarity search
+          example: 0.85
+          minimum: 0
+          maximum: 1
+        page_content:
+          type: string
+          description: Truncated content of the source document
+          example: "Humanoid robotics is a branch of robotics focused on creating robots with human-like characteristics..."
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          description: Health status of the service
+          enum: [healthy, unhealthy]
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the health check
+          example: "2025-12-19T10:00:00Z"
+
+    StatsResponse:
+      type: object
+      required:
+        - total_interactions
+        - total_errors
+        - average_response_time_ms
+        - recent_interactions
+        - timestamp
+      properties:
+        total_interactions:
+          type: integer
+          description: Total number of chat interactions
+          example: 1500
+        total_errors:
+          type: integer
+          description: Total number of error interactions
+          example: 12
+        average_response_time_ms:
+          type: number
+          description: Average response time in milliseconds
+          example: 1250.5
+        recent_interactions:
+          type: integer
+          description: Number of interactions in the last 24 hours
+          example: 45
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when stats were retrieved
+          example: "2025-12-19T10:00:00Z"
+
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: string
+          description: Error message
+          example: "Error processing request: API key not found"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: chat
+    description: Chat and query endpoints
+  - name: health
+    description: Health check endpoints
+  - name: analytics
+    description: Usage statistics and analytics

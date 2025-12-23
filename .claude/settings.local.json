@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"humanoid-robotics-textbook\\src\\components\\HomepageFeatures\")",
+      "WebFetch(domain:humanoid-robotics-textbook-zeta.vercel.app)"
+    ]
+  }
+}

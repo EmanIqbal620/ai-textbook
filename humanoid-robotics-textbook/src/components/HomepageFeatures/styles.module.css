@@ -1,0 +1,91 @@
+/**
+ * Homepage Features Section
+ * Designed for an academic AI & Robotics textbook
+ */
+
+.features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.02),
+    rgba(2, 6, 23, 0)
+  );
+}
+
+/* Feature card container (handled by Docusaurus grid) */
+.features :global(.col) {
+  margin-bottom: 2rem;
+}
+
+/* Individual feature card */
+.features :global(.card) {
+  height: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  text-align: center;
+  transition: all 0.35s ease;
+}
+
+/* Dark mode card */
+[data-theme='dark'] .features :global(.card) {
+  background: #020617;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Hover effect (professional, not flashy) */
+.features :global(.card):hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.12);
+}
+
+/* Feature title */
+.features h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Feature description */
+.features p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #475569;
+}
+
+/* Dark mode text */
+[data-theme='dark'] .features p {
+  color: #cbd5f5;
+}
+
+/* Feature icon / SVG */
+.featureSvg {
+  height: 96px;
+  width: 96px;
+  margin: 0 auto;
+  color: var(--ifm-color-primary);
+  transition: transform 0.35s ease;
+}
+
+/* Subtle icon animation on hover */
+.features :global(.card):hover .featureSvg {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 3.5rem 1rem;
+  }
+
+  .featureSvg {
+    height: 80px;
+    width: 80px;
+  }
+}
