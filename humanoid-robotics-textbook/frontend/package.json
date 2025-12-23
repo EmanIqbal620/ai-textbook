@@ -1,0 +1,12 @@
+{
+  "name": "frontend-chat-interface",
+  "version": "1.0.0",
+  "description": "React chat interface for connecting to FastAPI backend RAG chatbot",
+  "main": "ChatInterface.js",
+  "scripts": {
+    "test": "echo \"No tests specified yet\""
+  },
+  "keywords": ["react", "chatbot", "frontend", "api"],
+  "author": "Spec-Kit Plus",
+  "license": "MIT"
+}

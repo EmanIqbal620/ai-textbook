@@ -162,7 +162,7 @@ const ChatInterface: React.FC = () => {
     >
       {isMinimized ? (
         <div className={styles.minimizedText} style={{color: '#0d1b2a', fontWeight: 'bold', fontSize: '1rem', fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}}>
-          AI ASSIST
+          ASK AI
         </div>
       ) : (
         <>
@@ -183,7 +183,7 @@ const ChatInterface: React.FC = () => {
           </button>
 
           <div className={styles.chatHeader}>
-            <h3>AI Assistant</h3>
+            <h3>ASK AI</h3>
           </div>
 
           <div className={styles.messagesContainer}>
