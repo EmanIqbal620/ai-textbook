@@ -2,230 +2,241 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-import path from 'path';
-import fs from 'fs-extra';
-
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
-  title: 'Physical AI & Humanoid Robotics',
-  tagline: 'A comprehensive textbook for learning humanoid robotics with ROS 2, Gazebo, Unity, and NVIDIA Isaac',
+  title: 'Humanoid Robotics Textbook',
+  tagline: 'Master Physical AI & Humanoid Robotics - From ROS2 to Vision-Language-Action Systems',
+  favicon: 'img/favicon.ico',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
-  future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
-  },
-
-  // Set the production url of your site here
-  url: 'https://humanoid-robotics-textbook-zeta.vercel.app',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  // Production URL
+  url: 'https://humanoid-robotics-textbook.vercel.app',
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-organization', // Usually your GitHub org/user name.
-  projectName: 'humanoid-robotics-textbook', // Usually your repo name.
+  // Organization info
+  organizationName: 'humanoid-robotics',
+  projectName: 'humanoid-robotics-textbook',
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'ignore',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // Internationalization
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
- presets: [
-  [
-    'classic',
-    {
-      docs: {
-        sidebarPath: './sidebars.ts',
-        editUrl:
-          'https://github.com/your-organization/humanoid-robotics-textbook/edit/main/',
-      },
-      blog: false,
-      theme: {
-        customCss: './src/css/custom.css',
-      },
-      sitemap: {
-        changefreq: 'weekly',
-        priority: 0.5,
-        ignorePatterns: ['/tags/**'],
-        
-      },
-    } satisfies Preset.Options,
+  // Presets
+  presets: [
+    [
+      'classic',
+      {
+        docs: {
+          sidebarPath: './sidebars.ts',
+          editUrl:
+            'https://github.com/humanoid-robotics/humanoid-robotics-textbook/tree/main/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
+          routeBasePath: '/',  // Make docs the main landing page
+        },
+        blog: false,
+        theme: {
+          customCss: './src/css/custom.final.css',
+        },
+      } satisfies Preset.Options,
+    ],
   ],
-],
 
-
+  // Themes
   themes: [
-    // Add the Mermaid theme
     '@docusaurus/theme-mermaid',
   ],
 
-  plugins: [
-    // Plugin to add the chat widget to all pages
-    async function chatWidgetPlugin(context, options) {
-      return {
-        name: 'chat-widget-plugin',
-        configureWebpack(config, isServer, { getStyleLoaders }) {
-          return {
-            // Add webpack aliases or modifications if needed
-          };
-        },
-        async contentLoaded({ content, actions }) {
-          // This is called after content is loaded
-        },
-        async postBuild(props) {
-          // This is called after build
-        },
-        configureDevServer(app, server, { options }) {
-          // Serve sitemap.xml during development
-          app.get('/sitemap.xml', (req, res) => {
-            const sitemapPath = path.join(process.cwd(), 'build', 'sitemap.xml');
-
-            // Check if sitemap exists in build directory
-            if (fs.existsSync(sitemapPath)) {
-              // Serve the actual sitemap file if it exists
-              res.sendFile(sitemapPath);
-            } else {
-              // If sitemap doesn't exist in build folder, generate a minimal one for development
-              res.set('Content-Type', 'application/xml');
-              res.send(`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://localhost:3000/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-</urlset>`);
-            }
-          });
-        },
-        injectHtmlTags() {
-          return {
-            postBodyTags: [
-              `<div id="chat-widget-container"></div>`,
-            ],
-          };
-        },
-      };
-    },
-  ],
-  themes: [
-    // Add the Mermaid theme
-    '@docusaurus/theme-mermaid',
-  ],
-  clientModules: [
-    require.resolve('./src/client-modules.js'),
-  ],
+  // Theme Configuration
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/robotics-social-card.jpg',
+    // Social card
+    image: 'img/humanoid-robotics-social-card.jpg',
+    
+    // Color mode
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
       respectPrefersColorScheme: true,
     },
+
+    // Navbar
     navbar: {
-      title: 'Physical AI & Humanoid Robotics',
+      title: 'HUMANOID.AI',
       logo: {
-        src: 'img/robotics-logo.svg..avif',
+        alt: 'Humanoid Robotics Logo',
+        src: 'img/chatbot-icon.svg',
+        width: 40,
+        height: 40,
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          type: 'doc',
+          docId: 'intro',
           position: 'left',
-          label: 'Textbook',
+          label: 'LEARN',
+          className: 'navbar-link navbar-link-learn',
         },
         {
-          href: 'https://github.com/your-organization/humanoid-robotics-textbook',
-          label: 'GitHub',
+          type: 'doc',
+          docId: 'prerequisites',
+          position: 'left',
+          label: 'PREREQUISITES',
+          className: 'navbar-link navbar-link-prereq',
+        },
+        {
+          type: 'html',
+          position: 'left',
+          value: '<div class="navbar__divider"></div>',
+        },
+        {
+          href: 'https://github.com/humanoid-robotics/humanoid-robotics-textbook',
+          label: 'GITHUB',
           position: 'right',
+          className: 'navbar-github-link',
         },
       ],
     },
+
+    // Footer
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Textbook',
+          title: '📖 Modules',
           items: [
             {
-              label: 'Introduction',
-              to: '/docs/book-intro',
+              label: 'Module 1: ROS 2 Fundamentals',
+              to: '/docs/module-1-ros2/index',
             },
             {
-              label: 'Module 1: ROS 2',
-              to: '/docs/module-1-ros2',
+              label: 'Module 2: Simulation & Digital Twins',
+              to: '/docs/module-2-simulation/index',
             },
             {
-              label: 'Module 2: Simulation',
-              to: '/docs/module-2-simulation',
+              label: 'Module 3: NVIDIA Isaac AI',
+              to: '/docs/module-3-ai-brain/index',
             },
             {
-              label: 'Module 3: AI Brain',
-              to: '/docs/module-3-ai-brain',
+              label: 'Module 4: Vision-Language-Action',
+              to: '/docs/module-4-vla/index',
             },
-            {
-              label: 'Module 4: VLA',
-              to: '/docs/module-4-vla',
-            },
-          ],
-        },
-        {
-          title: 'Additional Modules',
-          items: [
             {
               label: 'Module 5: Hardware Requirements',
-              to: '/docs/module-5-hardware',
+              to: '/docs/module-5-hardware/index',
             },
             {
-              label: 'Module 6: Assessment Guidelines',
-              to: '/docs/module-6-assessment',
+              label: 'Module 6: Assessment',
+              to: '/docs/module-6-assessment/index',
             },
           ],
         },
         {
-          title: 'Resources',
+          title: '🔧 Resources',
           items: [
             {
-              label: 'Glossary',
+              label: '📝 Glossary',
               to: '/docs/glossary',
             },
             {
-              label: 'Bibliography',
+              label: '📚 Bibliography',
               to: '/docs/bibliography',
             },
             {
-              label: 'Additional Resources',
+              label: '🔗 Additional Resources',
               to: '/docs/additional-resources',
+            },
+            {
+              label: '💬 Chat with AI Tutor',
+              to: '/chat',
             },
           ],
         },
         {
-          title: 'More',
+          title: '👥 Community',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/your-organization/humanoid-robotics-textbook',
+              label: 'GitHub Repository',
+              href: 'https://github.com/humanoid-robotics/humanoid-robotics-textbook',
+            },
+            {
+              label: 'Report an Issue',
+              href: 'https://github.com/humanoid-robotics/humanoid-robotics-textbook/issues',
+            },
+            {
+              label: 'Discussions',
+              href: 'https://github.com/humanoid-robotics/humanoid-robotics-textbook/discussions',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Humanoid Robotics Textbook. Built with ❤️ using Docusaurus.`,
     },
+
+    // Prism theme for code blocks
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['python', 'bash', 'json', 'yaml', 'docker', 'csharp', 'cpp', 'java', 'rust'],
+      additionalLanguages: ['python', 'bash', 'json', 'yaml', 'markdown'],
+    },
+
+    // Algolia DocSearch (configure with your own credentials)
+    algolia: {
+      appId: 'YOUR_ALGOLIA_APP_ID',
+      apiKey: 'YOUR_ALGOLIA_API_KEY',
+      indexName: 'humanoid-robotics-textbook',
+      contextualSearch: true,
+      searchParameters: {},
+      searchPagePath: 'search',
+    },
+
+    // Announcement bar
+    announcementBar: {
+      id: 'support_us',
+      content:
+        '🎉 <strong>New:</strong> Module 4 on Vision-Language-Action Systems is now live! <a target="_blank" rel="noopener noreferrer" href="/docs/module-4-vla/index">Start learning →</a>',
+      backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      textColor: '#ffffff',
+      isCloseable: true,
+    },
+
+    // Live code block settings
+    liveCodeBlock: {
+      playgroundPosition: 'bottom',
+    },
+
+    // Docs sidebar
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
     },
   } satisfies Preset.ThemeConfig,
+
+  // Plugins
+  plugins: [
+    // Optional: Add sitemap plugin
+    async function myPlugin(context, options) {
+      return {
+        name: 'docusaurus-tailwindcss',
+        configurePostCss(postcssOptions) {
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+
+  // Scripts to load - Chat Widget
+  scripts: [
+    {
+      src: '/js/chat-widget.js',
+      async: true,
+      defer: true,
+    },
+  ],
 };
 
 export default config;

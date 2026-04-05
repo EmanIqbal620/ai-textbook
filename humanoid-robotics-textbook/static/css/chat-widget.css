@@ -1,0 +1,16 @@
+/**
+ * TERMINAL-STYLE CHAT WIDGET - CSS ONLY
+ * For reference - all styles are embedded in chat-widget.js
+ */
+
+/* 
+   This file is for reference only.
+   All CSS is embedded in chat-widget.js for easy integration.
+   
+   Key design elements:
+   - Font: 'Courier New', monospace
+   - Colors: #00d4ff (cyan), #0a0e1a (dark), #7b2cbf (purple)
+   - Borders: 1px solid #00d4ff with box-shadow glow
+   - Border-radius: 4px (sharp corners)
+   - Background: Grid pattern with linear-gradients
+*/

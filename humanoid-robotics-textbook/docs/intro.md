@@ -1,49 +1,44 @@
 ---
-sidebar_position: 1
+id: intro
+title: Learn Humanoid Robotics
+sidebar_label: 📖 Learn
 ---
 
-# Introduction to Physical AI & Humanoid Robotics
+# Master Humanoid Robotics
 
-Welcome to the comprehensive textbook on **Physical AI & Humanoid Robotics**. This textbook is designed to provide a complete learning experience for students interested in humanoid robotics, covering everything from fundamental ROS 2 concepts to advanced Vision-Language-Action systems.
+Your comprehensive guide to building intelligent humanoid robots.
 
-## Course Overview
+## Welcome to the Humanoid Robotics Textbook
 
-This textbook is structured into 4 main modules spanning 13 weeks:
+This textbook provides a comprehensive learning path for mastering humanoid robotics, from fundamental concepts to advanced AI integration.
 
-- **Module 1**: The Robotic Nervous System (ROS 2) - 3 weeks
-- **Module 2**: The Digital Twin (Gazebo & Unity) - 2 weeks
-- **Module 3**: The AI-Robot Brain (NVIDIA Isaac) - 3 weeks
-- **Module 4**: Vision-Language-Action (VLA) - 5 weeks
+## What You'll Learn
 
-## Learning Outcomes
+- **ROS 2 Fundamentals**: Master the Robot Operating System 2 - the nervous system of modern robots
+- **Simulation & Digital Twins**: Create virtual environments for safe testing with Gazebo and Unity
+- **AI for Robotics**: Implement NVIDIA Isaac and perception systems for intelligent behavior
+- **Vision-Language-Action Systems**: Build next-generation robot control with VLA models
+- **Hardware Requirements**: Understand CPU, GPU, sensors, and actuators for humanoid robots
+- **Assessment & Projects**: Test your knowledge with hands-on projects and practical exams
 
-Upon completion of this textbook, students will be able to:
+## How to Use This Textbook
 
-- Design and implement ROS 2-based humanoid robot systems
-- Create digital twins using Gazebo and Unity simulations
-- Integrate NVIDIA Isaac for AI-powered robot control
-- Develop Vision-Language-Action systems for autonomous humanoid operation
-- Apply machine learning and cognitive planning to robotics
-- Work with modern simulation environments for robot development
+1. Start with the **Module 1: ROS 2 Fundamentals** to build your foundation
+2. Progress through each module sequentially
+3. Complete the hands-on projects and assessments
+4. Use the **AI Tutor** chatbot for personalized help (bottom-right corner)
 
 ## Prerequisites
 
-Before starting this textbook, students should have:
+Basic knowledge of programming (Python recommended) and mathematics (linear algebra, calculus) will help you get the most out of this textbook. See the [Prerequisites](./prerequisites.md) page for more details.
 
-- Familiarity with Linux/Ubuntu environment
-- Basic Python programming skills
-- Understanding of linear algebra and calculus
-- Basic knowledge of control systems
-- Git version control experience
+## Features
 
-## Navigation
+- **6 Comprehensive Modules** covering all aspects of humanoid robotics
+- **24+ Weeks** of structured learning content
+- **100% Free** - open access to all materials
+- **Live AI Tutor** - get help whenever you need it
 
-Use the sidebar to navigate through the modules and weeks. Each week contains detailed content, code examples, practical exercises, and visualizations to help you understand the concepts.
+---
 
-## Support Resources
-
-- [Hardware Requirements](./module-5-hardware/hardware-specifications.md)
-- [Assessment Guidelines](./module-6-assessment/assessment-methods.md)
-- [Glossary](./glossary.md)
-- [Bibliography](./bibliography.md)
-- [Additional Resources](./additional-resources.md)
+Ready to begin? Navigate to **Module 1** in the sidebar to start your journey!

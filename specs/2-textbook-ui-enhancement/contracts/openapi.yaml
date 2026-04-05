@@ -1,0 +1,354 @@
+openapi: 3.0.0
+info:
+  title: Textbook UI Enhancement API
+  description: API for enhanced textbook UI features including themes, preferences, and navigation
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /api/modules:
+    get:
+      summary: Get all modules with enhanced UI data
+      responses:
+        '200':
+          description: Successfully retrieved modules
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  modules:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Module'
+        '500':
+          description: Internal server error
+
+  /api/modules/{moduleId}:
+    get:
+      summary: Get a specific module with enhanced UI data
+      parameters:
+        - name: moduleId
+          in: path
+          required: true
+          description: The module identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved module
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '404':
+          description: Module not found
+        '500':
+          description: Internal server error
+
+  /api/preferences:
+    get:
+      summary: Get user preferences
+      responses:
+        '200':
+          description: Successfully retrieved user preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPreference'
+        '500':
+          description: Internal server error
+    post:
+      summary: Update user preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPreference'
+      responses:
+        '200':
+          description: Successfully updated user preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPreference'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+
+  /api/search:
+    get:
+      summary: Search textbook content
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: The search query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results to return
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successfully retrieved search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SearchIndex'
+                  total:
+                    type: integer
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+
+  /api/navigation:
+    get:
+      summary: Get navigation structure
+      responses:
+        '200':
+          description: Successfully retrieved navigation structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  navigation:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NavigationItem'
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the module
+        title:
+          type: string
+          description: The module title
+        icon:
+          type: string
+          description: The icon representation
+        description:
+          type: string
+          description: Short description of the module
+        topics:
+          type: array
+          items:
+            type: string
+          description: List of topics covered in the module
+        learningOutcomes:
+          type: array
+          items:
+            type: string
+          description: Learning outcomes for the module
+        examples:
+          type: array
+          items:
+            $ref: '#/components/schemas/Example'
+        diagrams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Diagram'
+        tipsWarnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/TipWarning'
+        order:
+          type: number
+          description: The order in which modules appear
+        colorCode:
+          type: string
+          description: The color code for the module in the sidebar
+      required:
+        - id
+        - title
+        - icon
+        - description
+        - order
+
+    Example:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the example
+        language:
+          type: string
+          description: The programming language
+        code:
+          type: string
+          description: The actual code content
+        description:
+          type: string
+          description: Description of what the example demonstrates
+        moduleRef:
+          type: string
+          description: Reference to the parent module
+      required:
+        - id
+        - language
+        - code
+        - moduleRef
+
+    Diagram:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the diagram
+        type:
+          type: string
+          enum: [IMAGE, MERMAID, SVG]
+          description: Type of the diagram
+        src:
+          type: string
+          description: Source URL or embedded content
+        altText:
+          type: string
+          description: Alternative text for accessibility
+        caption:
+          type: string
+          description: Caption for the diagram
+        moduleRef:
+          type: string
+          description: Reference to the parent module
+      required:
+        - id
+        - type
+        - src
+        - altText
+        - moduleRef
+
+    TipWarning:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the tip/warning
+        type:
+          type: string
+          enum: [TIP, WARNING, NOTE, IMPORTANT]
+          description: Type of tip or warning
+        content:
+          type: string
+          description: The tip or warning content
+        accentColor:
+          type: string
+          description: The soft accent color for the tip/warning
+        moduleRef:
+          type: string
+          description: Reference to the parent module
+      required:
+        - id
+        - type
+        - content
+        - accentColor
+        - moduleRef
+
+    UserPreference:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User identifier
+        theme:
+          type: string
+          enum: [LIGHT, DARK]
+          description: Current theme setting
+        fontSize:
+          type: string
+          description: User's preferred font size
+        highContrast:
+          type: boolean
+          description: Whether to use high contrast mode
+        lastVisitedModule:
+          type: string
+          description: The last module the user visited
+        bookmarks:
+          type: array
+          items:
+            type: string
+          description: Bookmarked modules
+      required:
+        - id
+        - theme
+
+    SearchIndex:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the search entry
+        title:
+          type: string
+          description: Title of the content
+        content:
+          type: string
+          description: The searchable content
+        moduleRef:
+          type: string
+          description: Reference to the parent module
+        url:
+          type: string
+          description: URL to the content
+        type:
+          type: string
+          enum: [MODULE, SECTION, EXAMPLE, DIAGRAM]
+          description: Type of content
+      required:
+        - id
+        - title
+        - content
+        - url
+        - type
+
+    NavigationItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the navigation item
+        title:
+          type: string
+          description: The display name
+        icon:
+          type: string
+          description: Icon representation
+        summary:
+          type: string
+          description: Short summary shown on hover
+        url:
+          type: string
+          description: URL to navigate to
+        parentModule:
+          type: string
+          description: Reference to parent module, if applicable
+        order:
+          type: number
+          description: The order in the navigation
+      required:
+        - id
+        - title
+        - icon
+        - url
+        - order

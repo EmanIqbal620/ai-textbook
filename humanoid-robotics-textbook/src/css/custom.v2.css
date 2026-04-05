@@ -1,0 +1,2165 @@
+/**
+ * TERMINAL / SCI-FI THEME
+ * Complete Professional Cyberpunk Interface
+ */
+
+/* Global Animations */
+@keyframes gridmove {
+  0%   { background-position: 0 0 }
+  100% { background-position: 40px 40px }
+}
+
+@keyframes scan {
+  0%   { transform: translateY(-100%) }
+  100% { transform: translateY(400px) }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(-10px); }
+}
+
+/* ============================================
+   ROOT VARIABLES
+   ============================================ */
+:root {
+  /* Colors */
+  --bg-primary: #080c18;
+  --bg-secondary: #0f1524;
+  --bg-card: #0f1524;
+  --bg-icon: #0a1628;
+  
+  --border: #1e3a5f;
+  --border-light: #1e3a5f66;
+  
+  --cyan: #00d4ff;
+  --cyan-dim: #00d4ff33;
+  --cyan-glow: #00d4ff66;
+  --cyan-bg: #00d4ff08;
+  --cyan-bg-hover: #00d4ff18;
+  
+  --purple: #7b2fff;
+  --purple-dim: #7b2fff33;
+  --purple-bg: #7b2fff08;
+  
+  --green: #00ff88;
+  --green-glow: #00ff8866;
+  
+  --text-primary: #e8f4f8;
+  --text-secondary: #a0c4d8;
+  --text-dim: #4a7a9b;
+  
+  /* Typography */
+  --font-mono: 'Courier New', monospace;
+  
+  /* Spacing */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+}
+
+/* ============================================
+   GLOBAL RESET & BASE
+   ============================================ */
+* {
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.5px;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary) !important;
+  color: var(--text-secondary);
+  font-family: var(--font-mono) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e3a5f;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan);
+}
+
+/* ============================================
+   PAGE BACKGROUND
+   ============================================ */
+html, body, #__docusaurus, .main-wrapper {
+  background: var(--bg-primary) !important;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  background: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border) !important;
+  backdrop-filter: blur(10px);
+  padding: 0 20px !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  height: 60px !important;
+}
+
+/* Navbar container to center content */
+.navbar__inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  justify-content: space-between !important;
+}
+
+/* Add padding to main content to account for fixed navbar - REDUCED */
+.main-wrapper {
+  padding-top: 60px !important;
+}
+
+main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Center the hero section - MOVED UP */
+.hero-section {
+  max-width: 1200px !important;
+  margin: 0 auto 40px auto !important;
+}
+
+/* Global smooth scrolling - CRITICAL FIX */
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 100px !important;
+}
+
+body {
+  scroll-behavior: smooth !important;
+}
+
+/* Ensure right sidebar (table of contents) is visible and clickable */
+.tableOfContents {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+
+.tableOfContents_node_modules-\@docusaurus-theme-common\lib\utils\tocNode {
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure doc item container has proper layout */
+.docItemCol_node_modules-\@docusaurus-theme-classic\lib\theme\DocItem\Layout\styles {
+  max-width: 75% !important;
+}
+
+/* Right sidebar styling - Table of Contents */
+[class*="tableOfContents_"] {
+  display: block !important;
+  max-height: calc(100vh - 200px) !important;
+  overflow-y: auto !important;
+  padding: 20px 0 !important;
+  pointer-events: auto !important;
+}
+
+[class*="tableOfContents_"] li {
+  margin: 8px 0 !important;
+  list-style: none !important;
+}
+
+[class*="tableOfContents_"] a {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  font-size: 14px !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.6 !important;
+  transition: color 0.2s ease, text-decoration 0.2s ease !important;
+  text-decoration: none !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  width: 100% !important;
+  padding: 4px 0 !important;
+}
+
+[class*="tableOfContents_"] a:hover {
+  color: var(--cyan) !important;
+  text-decoration: underline !important;
+}
+
+[class*="tableOfContents_"] a[class*="active"] {
+  color: var(--cyan) !important;
+  font-weight: 600 !important;
+}
+
+/* Nested TOC items */
+[class*="tableOfContents_"] ul {
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+[class*="tableOfContents_"] ul ul {
+  padding-left: 16px !important;
+}
+
+[class*="tableOfContents_"] ul ul a {
+  font-size: 13px !important;
+  color: var(--text-dim) !important;
+}
+
+/* Remove any blocking overlays */
+[class*="tocCollapsible_"] {
+  display: none !important;
+}
+
+/* CRITICAL: Make anchor links work */
+.anchor,
+[class*="anchor_"] {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* CRITICAL: Ensure headings can be scrolled to */
+.markdown h1[id],
+.markdown h2[id],
+.markdown h3[id],
+.markdown h4[id],
+.markdown h5[id],
+.markdown h6[id] {
+  scroll-margin-top: 120px !important;
+  scroll-snap-align: start !important;
+}
+
+/* Make sure heading anchors are clickable */
+[class*="heading_"] a,
+h1[id] a, h2[id] a, h3[id] a, h4[id] a, h5[id] a, h6[id] a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Doc page layout - REMOVE ALL GAPS */
+[class*="docMainContainer_"] {
+  display: flex !important;
+  max-width: 100% !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+/* Left sidebar - narrower */
+.theme-doc-sidebar-container,
+[class*="docSidebarContainer_"] {
+  width: 240px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 14px !important;
+}
+
+/* Main content - MAXIMUM WIDTH */
+[class*="docItemCol_"] {
+  width: calc(100% - 340px) !important;
+  max-width: calc(100% - 340px) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  min-width: 0 !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  overflow-x: auto !important;
+}
+
+/* Right sidebar (Table of Contents) - MINIMUM WIDTH */
+[class*="tableOfContents_"],
+[class*="toc_"],
+.tableOfContents {
+  width: 100px !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 16px 0 16px 4px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  font-size: 11px !important;
+  border-left: 1px solid var(--border) !important;
+}
+
+[class*="tableOfContents_"] li {
+  margin: 4px 0 !important;
+  padding: 0 !important;
+}
+
+[class*="tableOfContents_"] a {
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  padding: 2px 0 !important;
+  display: block !important;
+  word-break: break-word !important;
+  max-width: 90px !important;
+}
+
+/* Ensure content scrolls properly */
+.markdown {
+  max-width: 100% !important;
+  padding: 20px !important;
+}
+
+/* Remove ALL gaps and margins */
+[class*="docRoot_"] {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  width: 100% !important;
+}
+
+/* Fix sidebar border - single clean line - NARROWER */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--border) !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding: 14px !important;
+  width: 240px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 14px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  float: left !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  position: sticky !important;
+  top: 60px !important;
+}
+
+/* Remove any double borders or gaps */
+[class*="docPage_"] {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  width: 100% !important;
+}
+
+[class*="docSidebarContainer_"] {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  float: left !important;
+}
+
+/* Remove gap between sidebar and content - ALL ELEMENTS */
+[class*="docSidebarContainer_"] + div,
+[class*="docSidebarContainer_"] + *,
+[class*="docSidebarContainer_"] + [class*="docItemCol_"],
+[class*="docSidebarContainer_"] + [class*="docMainContainer_"] {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Main content area */
+[class*="docMainContainer_"] > div:last-child {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  overflow-wrap: break-word !important;
+  width: calc(100% - 280px) !important;
+  float: left !important;
+}
+
+/* Remove margins from intro/prerequisites pages */
+.main-wrapper main {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  width: 100% !important;
+}
+
+/* FORCE NO GAP - Target all possible containers */
+[class*="container_"],
+[class*="wrapper_"],
+[class*="content_"],
+[class*="main_"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+}
+
+/* Remove any flex gap */
+[class*="docMainContainer_"] > div,
+[class*="docRoot_"] > div,
+[class*="docPage_"] > div {
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* CRITICAL: Override Docusaurus default spacing */
+div[class*="docMainContainer"] div[class*="docItemCol"] {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+}
+
+/* Remove sidebar right margin */
+.theme-doc-sidebar-container + div {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  min-width: 0 !important;
+  width: calc(100% - 280px) !important;
+}
+
+/* RIGHT SIDEBAR (Table of Contents) - FIX POSITION AND VISIBILITY */
+[class*="tableOfContents_"],
+[class*="toc_"],
+.tableOfContents {
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  word-break: break-word !important;
+  position: relative !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 100% !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+
+/* Ensure right sidebar container is visible */
+[class*="tocContainer_"],
+[class*="tocContainer"] {
+  display: block !important;
+  width: 220px !important;
+  min-width: 220px !important;
+  position: relative !important;
+}
+
+/* Page title - prevent cutoff */
+h1[class*="title_"],
+h1[class*="heading_"],
+.markdown h1,
+h1 {
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  hyphens: auto !important;
+}
+
+/* Main content wrapper - proper overflow */
+main {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Body and html */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ensure content is readable - WIDER */
+.markdown {
+  max-width: 900px !important;  /* INCREASED from 800px */
+  margin: 0 auto !important;
+  padding: 24px 40px !important;  /* More horizontal padding */
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* CRITICAL: Force clear floats */
+.clearfix::after {
+  content: "" !important;
+  clear: both !important;
+  display: table !important;
+}
+
+/* Hide sidebar resizer */
+.docSidebarContainer_YfHR [class*="sidebarResizer"],
+[class*="sidebarResizer"] {
+  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Fix sidebar width */
+aside[class*="docSidebarContainer"],
+.theme-doc-sidebar-container {
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+}
+
+/* ADD THIS EXTRA LINE */
+[class*="docSidebarContainer"] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  border-right: 1px solid #1e3a5f !important;
+}
+
+/* Remove gap between sidebar and content */
+.docPage__5DB,
+div[class*="docPage"] {
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+/* Fix main content starting position */
+div[class*="docMainContainer"] {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* CRITICAL: Remove ALL gaps between sidebars and content */
+[class*="docSidebarContainer_"] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+[class*="docItemCol_"] {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Remove any gap on left side of content */
+main[class*="docMainContainer"] > div:first-child,
+main[class*="docMainContainer"] > div:nth-child(2) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Remove any gap on right side of content */
+[class*="tableOfContents_"],
+[class*="toc_"] {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Force no gap anywhere */
+div[class*="docRoot"] div[class*="docPage"],
+div[class*="docPage"] div[class*="docMainContainer"] {
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar__logo {
+  height: 32px !important;
+  width: 32px !important;
+}
+
+/* Logo Text */
+.navbar__title {
+  font-family: var(--font-mono) !important;
+  font-size: 13px !important;
+  color: #00d4ff !important;
+  letter-spacing: 2px !important;
+  font-weight: 700 !important;
+  margin-left: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1.2 !important;
+}
+
+.navbar__title::after {
+  content: 'ROBOTICS TEXTBOOK' !important;
+  font-size: 8px !important;
+  color: #4a7a9b !important;
+  letter-spacing: 1px !important;
+  margin-top: 2px !important;
+  font-weight: 400 !important;
+}
+
+/* Vertical Divider */
+.navbar__divider {
+  width: 1px;
+  height: 20px;
+  background: #1e3a5f;
+  margin: 0 8px;
+}
+
+/* Nav Links */
+.navbar-link {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 1px !important;
+  color: #4a7a9b !important;
+  padding: 5px 10px !important;
+  border-radius: 3px !important;
+  border: 1px solid transparent !important;
+  text-transform: uppercase !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* LEARN icon - Layers */
+.navbar-link-learn::before {
+  content: '' !important;
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' stroke='%234a7a9b' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+
+/* PREREQUISITES icon - Books */
+.navbar-link-prereq::before {
+  content: '' !important;
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z' stroke='%234a7a9b' stroke-width='2' fill='none'/%3E%3Cpath d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z' stroke='%234a7a9b' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+
+.navbar-link:hover {
+  color: #e8f4f8 !important;
+  border-color: #1e3a5f !important;
+  background: #ffffff05 !important;
+}
+
+.navbar-link--active {
+  color: #00d4ff !important;
+  border-color: #00d4ff33 !important;
+  background: #00d4ff08 !important;
+}
+
+.navbar-link--active.navbar-link-learn::before,
+.navbar-link--active.navbar-link-prereq::before {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' stroke='%2300d4ff' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
+}
+
+/* GitHub Button */
+.navbar-github-link {
+  font-family: var(--font-mono) !important;
+  font-size: 9px !important;
+  letter-spacing: 1px !important;
+  color: #00d4ff !important;
+  border: 1px solid #00d4ff33 !important;
+  background: #00d4ff08 !important;
+  padding: 4px 8px 4px 28px !important;
+  border-radius: 2px !important;
+  text-transform: uppercase !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+}
+
+/* Green blinking dot */
+.navbar-github-link::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 8px !important;
+  width: 6px !important;
+  height: 6px !important;
+  background: #00ff88 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 6px #00ff88 !important;
+  animation: pulse 2s infinite !important;
+}
+
+/* GitHub star icon */
+.navbar-github-link::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 12px !important;
+  height: 12px !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' stroke='%2300d4ff' stroke-width='2' fill='none'/%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  margin-right: 4px !important;
+}
+
+.navbar-github-link:hover {
+  border-color: #00d4ff !important;
+  box-shadow: 0 0 8px #00d4ff33 !important;
+}
+
+/* Green Blinking Dot before GitHub */
+.navbar-github-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00ff88;
+  animation: pulse 2s infinite;
+}
+
+/* Search Box */
+.navbar__search-input {
+  background: #0f1524 !important;
+  border: 1px solid #1e3a5f !important;
+  border-radius: 3px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 1px !important;
+  color: #4a7a9b !important;
+  padding: 6px 10px 6px 32px !important;
+  width: 180px !important;
+}
+
+.navbar__search-input::placeholder {
+  color: #4a7a9b !important;
+  text-transform: uppercase !important;
+}
+
+.navbar__search-input:focus {
+  border-color: #00d4ff33 !important;
+  outline: none !important;
+}
+
+.navbar__search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.navbar__search-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: #4a7a9b !important;
+  stroke-width: 2 !important;
+  fill: none !important;
+}
+
+/* Search Kbd Badges */
+.navbar__search-kbd {
+  background: #1a2235 !important;
+  border: 1px solid #2a3a5f !important;
+  border-radius: 2px !important;
+  color: #1e3a5f !important;
+  font-size: 8px !important;
+  padding: 2px 4px !important;
+  font-family: var(--font-mono) !important;
+}
+
+.navbar__item {
+  font-family: var(--font-mono) !important;
+  color: var(--text-secondary) !important;
+  letter-spacing: 0.5px !important;
+  font-size: 13px !important;
+}
+
+.navbar__item:hover {
+  color: var(--cyan) !important;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION - LEFT
+   ============================================ */
+.theme-doc-sidebar-container {
+  background: var(--bg-secondary) !important;
+  border-right: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 14px !important;
+  font-size: 14px !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: sticky !important;
+  top: 60px !important;
+}
+
+/* Ensure scrollbar is visible */
+.theme-doc-sidebar-container::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-track {
+  background: var(--bg-secondary) !important;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+  border-radius: 3px !important;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan) !important;
+}
+
+.menu {
+  background: transparent !important;
+  padding-bottom: 40px !important;
+}
+
+.menu__list {
+  padding-top: 8px !important;
+  display: block !important;
+}
+
+.menu__list-item {
+  display: block !important;
+  padding: 4px 0 !important;
+  margin: 4px 0 !important;
+  border-radius: var(--radius-sm) !important;
+  cursor: pointer;
+  transition: all 0.2s ease !important;
+}
+
+.menu__list-item-collapsible {
+  display: block !important;
+  background: transparent !important;
+}
+
+.menu__list-item-collapsible:hover {
+  background: var(--cyan-bg) !important;
+}
+
+.menu__caret {
+  float: right !important;
+  margin-top: 4px !important;
+}
+
+.menu__list-item-collapsible .menu__link {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.menu__list-item .menu__list {
+  margin-top: 4px !important;
+  padding-left: 16px !important;
+  border-left: 2px solid var(--border) !important;
+}
+
+.menu__list-item--active::before {
+  background: var(--cyan) !important;
+  box-shadow: 0 0 6px var(--cyan-glow) !important;
+}
+
+.menu__list-item:hover {
+  background: var(--cyan-bg) !important;
+}
+
+.menu__list-item:hover::before {
+  background: var(--cyan);
+}
+
+.menu__list-item--active {
+  background: var(--cyan-bg) !important;
+}
+
+.menu__link {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  font-size: 14px !important;
+  color: var(--text-primary) !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.5 !important;
+  padding: 8px 12px !important;
+}
+
+.menu__list-item--active .menu__link {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.menu__list-item:hover .menu__link {
+  color: var(--cyan) !important;
+}
+
+.menu__list-item-collapsible .menu__link {
+  font-weight: 600 !important;
+  color: var(--cyan) !important;
+}
+
+/* Sidebar Header */
+.menu__list-item-collapsible {
+  background: transparent !important;
+  margin-bottom: 8px !important;
+}
+
+.menu__list-item-collapsible .menu__link {
+  font-size: 9px !important;
+  letter-spacing: 2px !important;
+  color: var(--cyan) !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding-bottom: 8px !important;
+}
+
+/* AI Tutor Button */
+.menu__list-item:last-child {
+  margin-top: 10px !important;
+}
+
+.ai-tutor-btn {
+  background: var(--purple-bg);
+  border: 1px solid var(--purple-dim);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.ai-tutor-btn:hover {
+  border-color: var(--purple);
+  box-shadow: 0 0 10px rgba(123, 47, 255, 0.14);
+}
+
+.ai-tutor-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--purple);
+  stroke-width: 1.2;
+  fill: none;
+}
+
+.ai-tutor-btn span {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--purple);
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   MODULE LABELS
+   ============================================ */
+.module-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.module-num {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--cyan);
+  border: 1px solid var(--cyan-dim);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--cyan-bg);
+  font-family: var(--font-mono);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.module-title {
+  font-size: 20px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   MODULE CARDS
+   ============================================ */
+.module-card, .card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 18px !important;
+  display: grid !important;
+  grid-template-columns: 56px 1fr !important;
+  gap: 16px !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  margin: 20px 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Module Cards Grid - 3 per row */
+.module-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+}
+
+/* Container for module cards - responsive grid */
+.module-card-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin: 20px 0 !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1200px) {
+  .module-card-wrapper {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .module-card-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .module-card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.module-card::before, .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--cyan), var(--purple));
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.module-card::after, .card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.module-card:hover::after, .card:hover::after {
+  opacity: 1;
+}
+
+.module-card:hover, .card:hover {
+  border-color: rgba(0, 212, 255, 0.35) !important;
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.07) !important;
+}
+
+/* ============================================
+   ICON BOX
+   ============================================ */
+.icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--bg-icon);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.icon-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--cyan);
+  border-right: 1px solid var(--cyan);
+  opacity: 0.6;
+}
+
+.icon-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-bottom: 1px solid var(--cyan);
+  border-left: 1px solid var(--cyan);
+  opacity: 0.6;
+}
+
+.icon-box svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--cyan);
+  stroke-width: 1.2;
+  fill: none;
+}
+
+/* ============================================
+   WEEK TAGS
+   ============================================ */
+.week-tag {
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--cyan-dim);
+  color: var(--cyan);
+  background: var(--cyan-bg);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.week-tag:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-bg-hover);
+  box-shadow: 0 0 8px var(--cyan-dim);
+}
+
+.week-tag.purple {
+  border-color: var(--purple-dim);
+  color: var(--purple);
+  background: var(--purple-bg);
+}
+
+.week-tag.purple:hover {
+  border-color: var(--purple);
+  background: rgba(123, 47, 255, 0.09);
+  box-shadow: 0 0 8px rgba(123, 47, 255, 0.2);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.button, .btn {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  padding: 7px 14px !important;
+  border-radius: var(--radius-sm) !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.button--primary, .btn-primary {
+  background: var(--cyan) !important;
+  color: var(--bg-primary) !important;
+}
+
+.button--primary:hover, .btn-primary:hover {
+  background: #00ffff !important;
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.35) !important;
+}
+
+.button--secondary, .btn-secondary {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.button--secondary:hover, .btn-secondary:hover {
+  border-color: var(--cyan) !important;
+  color: var(--cyan) !important;
+}
+
+.button svg, .btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* ============================================
+   STATS ROW
+   ============================================ */
+.stats-row {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 16px;
+  display: flex;
+  gap: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.stat-number.cyan { color: var(--cyan); }
+.stat-number.purple { color: var(--purple); }
+.stat-number.green { color: var(--green); }
+
+.stat-label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progress-bar {
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+/* ============================================
+   READING PAGE - BOOK CONTENT
+   ============================================ */
+.markdown {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+.markdown h1 {
+  font-size: 32px;
+  color: var(--cyan);
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+
+.markdown h2 {
+  font-size: 24px;
+  color: var(--text-primary);
+  border-left: 4px solid var(--cyan);
+  padding-left: 16px;
+  letter-spacing: 0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.markdown h3 {
+  font-size: 20px;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.markdown p {
+  font-size: 17px;
+  color: var(--text-primary);
+  line-height: 1.8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  margin-bottom: 20px;
+  letter-spacing: 0.2px;
+}
+
+.markdown code {
+  background: var(--bg-icon) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--green) !important;
+  font-size: 14px !important;
+  padding: 16px 20px !important;
+  font-family: 'Courier New', Consolas, monospace !important;
+  display: block;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.markdown pre {
+  background: var(--bg-icon) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  font-family: 'Courier New', Consolas, monospace !important;
+  margin: 24px 0;
+}
+
+.markdown blockquote {
+  border-left: 4px solid var(--cyan);
+  background: var(--bg-secondary);
+  padding: 16px 20px;
+  color: var(--text-secondary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  margin: 24px 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.markdown a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.markdown a:hover {
+  color: var(--green);
+  border-bottom: 1px solid var(--cyan);
+}
+
+.markdown ul, .markdown ol {
+  margin-bottom: 20px;
+  padding-left: 28px;
+}
+
+.markdown li {
+  margin-bottom: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+
+.markdown table th {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 14px;
+  color: var(--cyan);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.markdown table td {
+  border: 1px solid var(--border);
+  padding: 14px;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   ANCHOR LINKS (Hide # symbols)
+   ============================================ */
+.anchor {
+  display: none !important;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - COMPREHENSIVE FIX
+   ============================================ */
+
+/* Tablet - 1024px */
+@media (max-width: 1024px) {
+  /* Hide right sidebar completely */
+  [class*="tableOfContents_"],
+  [class*="toc_"],
+  .tableOfContents {
+    display: none !important;
+  }
+
+  /* Left sidebar overlay */
+  .theme-doc-sidebar-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 60px !important;
+    height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+    z-index: 999 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    background: var(--bg-secondary) !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    width: 240px !important;
+    min-width: 240px !important;
+  }
+
+  /* Show sidebar when toggled */
+  [class*="docSidebarContainer_"][class*="visible"] .theme-doc-sidebar-container,
+  .theme-doc-sidebar-container.mobile {
+    transform: translateX(0) !important;
+  }
+
+  /* Main content full width */
+  [class*="docItemCol_"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Module cards - 2 per row */
+  .module-card-wrapper {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* Adjust navbar */
+  .navbar__inner {
+    max-width: 100% !important;
+    padding: 0 16px !important;
+  }
+
+  .navbar__search-input {
+    width: 160px !important;
+  }
+}
+
+/* Mobile - 768px */
+@media (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar__inner {
+    padding: 0 12px !important;
+  }
+
+  .navbar__logo {
+    height: 28px !important;
+    width: 28px !important;
+  }
+
+  .navbar__title {
+    font-size: 12px !important;
+  }
+
+  .navbar__title::after {
+    display: none !important;
+  }
+
+  .navbar__items--right {
+    display: none !important;
+  }
+
+  .navbar__search-input {
+    width: 140px !important;
+    font-size: 9px !important;
+    padding: 5px 8px 5px 28px !important;
+  }
+
+  .navbar-link {
+    font-size: 9px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Hide search on small screens */
+  .navbar__search {
+    display: none !important;
+  }
+
+  /* Hide right sidebar */
+  [class*="tableOfContents_"],
+  [class*="toc_"],
+  .tableOfContents {
+    display: none !important;
+  }
+
+  /* Main content full width with scroll - BRING TO FRONT */
+  [class*="docItemCol_"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    z-index: 1 !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Ensure main content area scrolls - BRING TO FRONT */
+  [class*="docMainContainer_"],
+  [class*="docPage_"],
+  main,
+  .main-wrapper,
+  #__docusaurus {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Sidebar drawer with scroll - BEHIND CONTENT */
+  .theme-doc-sidebar-container {
+    width: 260px !important;
+    min-width: 260px !important;
+    top: 60px !important;
+    height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: fixed !important;
+    left: 0 !important;
+    z-index: 998 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    background: var(--bg-secondary) !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Show sidebar when toggled */
+  [class*="docSidebarContainer_"][class*="visible"] .theme-doc-sidebar-container,
+  .theme-doc-sidebar-container.mobile {
+    transform: translateX(0) !important;
+  }
+
+  /* SCROLLBAR for mobile sidebar */
+  .theme-doc-sidebar-container::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .theme-doc-sidebar-container::-webkit-scrollbar-track {
+    background: var(--bg-secondary) !important;
+  }
+
+  .theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px !important;
+  }
+
+  .theme-doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+    background: var(--cyan) !important;
+  }
+
+  .markdown {
+    padding: 12px !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Module cards - 1 per row */
+  .module-card-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .module-card, .card {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 14px !important;
+  }
+
+  .icon-box {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .icon-box svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* Stats row */
+  .stats-row {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+
+  .stat-item {
+    flex: 1 1 45% !important;
+  }
+
+  /* Typography */
+  .markdown h1 {
+    font-size: 24px !important;
+  }
+
+  .markdown h2 {
+    font-size: 20px !important;
+  }
+
+  .markdown h3 {
+    font-size: 18px !important;
+  }
+
+  .markdown p {
+    font-size: 15px !important;
+  }
+
+  .markdown code {
+    font-size: 12px !important;
+    padding: 12px !important;
+  }
+
+  /* Buttons */
+  .button, .btn {
+    font-size: 9px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Hero section */
+  .hero__title {
+    font-size: 24px !important;
+  }
+
+  .hero__subtitle {
+    font-size: 16px !important;
+  }
+
+  /* Footer */
+  .footer__col {
+    flex: 1 1 100% !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+/* Small Mobile - 480px */
+@media (max-width: 480px) {
+  /* Navbar */
+  .navbar__title {
+    font-size: 11px !important;
+  }
+
+  .navbar-link {
+    font-size: 8px !important;
+    padding: 3px 6px !important;
+  }
+
+  /* Content */
+  .markdown {
+    padding: 12px !important;
+  }
+
+  .markdown h1 {
+    font-size: 20px !important;
+  }
+
+  .markdown h2 {
+    font-size: 18px !important;
+  }
+
+  .markdown p {
+    font-size: 14px !important;
+  }
+
+  /* Module cards */
+  .module-card {
+    padding: 12px !important;
+  }
+
+  .week-tag {
+    font-size: 8px !important;
+    padding: 2px 6px !important;
+  }
+
+  /* Stats */
+  .stat-item {
+    flex: 1 1 100% !important;
+  }
+
+  .stat-number {
+    font-size: 14px !important;
+  }
+
+  .stat-label {
+    font-size: 8px !important;
+  }
+
+  /* Sidebar */
+  .theme-doc-sidebar-container {
+    width: 260px !important;
+    min-width: 260px !important;
+  }
+
+  .menu__link {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Module labels */
+  .module-num {
+    font-size: 8px !important;
+    padding: 2px 6px !important;
+  }
+
+  .module-title {
+    font-size: 16px !important;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .theme-doc-sidebar-container {
+    top: 50px !important;
+    height: calc(100vh - 50px) !important;
+  }
+
+  .navbar {
+    height: 50px !important;
+  }
+
+  main {
+    padding-top: 50px !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .theme-doc-sidebar-container,
+  [class*="tableOfContents_"],
+  .footer {
+    display: none !important;
+  }
+
+  .markdown {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px var(--cyan-dim); }
+  50% { box-shadow: 0 0 18px var(--cyan-glow); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero--primary {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary)) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.hero__title {
+  font-family: var(--font-mono) !important;
+  color: var(--cyan) !important;
+  letter-spacing: 3px !important;
+  font-weight: 700 !important;
+}
+
+.hero__subtitle {
+  font-family: var(--font-mono) !important;
+  color: var(--text-secondary) !important;
+  letter-spacing: 1px !important;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--bg-primary) !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+.footer__title {
+  font-family: var(--font-mono) !important;
+  color: var(--cyan) !important;
+  letter-spacing: 1px !important;
+}
+
+.footer__link-item {
+  font-family: var(--font-mono) !important;
+  color: var(--text-dim) !important;
+  transition: color 0.2s ease !important;
+}
+
+.footer__link-item:hover {
+  color: var(--cyan) !important;
+}
+
+.footer__copyright {
+  font-family: var(--font-mono) !important;
+  color: var(--text-dim) !important;
+}
+
+/* ============================================
+   FIX FEATURES CLASS (override index.module.css)
+   ============================================ */
+.features .row {
+  display: block !important;
+}
+
+.features .col {
+  display: block !important;
+  padding: 0 !important;
+  text-align: left !important;
+  transition: none !important;
+}
+
+.features .col:hover {
+  transform: none !important;
+}
+
+/* Container utilities */
+.container {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  width: 100% !important;
+}
+
+.padding-horiz--md {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+/* Ensure module elements are visible */
+.module-card-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin: 20px 0 !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1200px) {
+  .module-card-wrapper {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .module-card-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.module-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.module-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.module-title {
+  font-size: 20px !important;
+  color: var(--cyan) !important;
+  letter-spacing: 2px !important;
+  font-weight: 700 !important;
+  font-family: var(--font-mono) !important;
+  margin-bottom: 16px !important;
+}
+
+.module-card {
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex: 1 !important;
+}
+
+/* ============================================
+   FIX 1 — Empty gap above "Learn" in left sidebar
+   ============================================ */
+.theme-doc-sidebar-container > div,
+div[class*="sidebarViewport"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+nav.menu {
+  padding-top: 8px !important;
+  margin-top: 0 !important;
+}
+
+/* ============================================
+   FIX 2 — Left sidebar not scrolling to Module 6
+   ============================================ */
+.theme-doc-sidebar-container {
+  overflow: hidden !important;
+}
+
+div[class*="sidebarViewport"],
+nav[class*="sidebarViewport"],
+.theme-doc-sidebar-menu,
+nav.menu {
+  overflow-y: scroll !important;
+  height: calc(100vh - 60px) !important;
+  padding-bottom: 60px !important;
+}
+
+/* ============================================
+   FIX 3 — Remove cursor/arrow icon at bottom of sidebar
+   ============================================ */
+div[class*="collapseSidebarButton"],
+button[class*="collapseSidebarButton"],
+[class*="collapseSidebarButtonIcon"] {
+  display: none !important;
+}
+
+/* ============================================
+   FIX 4 — Center the main content
+   ============================================ */
+article[class*="docItemContainer"] {
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  padding: 24px 32px !important;
+}
+
+/* ============================================
+   FIX 5 — Right TOC font too small
+   ============================================ */
+.table-of-contents__link {
+  font-size: 12px !important;
+  line-height: 1.8 !important;
+  padding: 4px 0 !important;
+}
+
+.table-of-contents {
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+}
+
+/* ============================================
+   FIX 6 — MOBILE RESPONSIVE (Phone Screens)
+   ============================================ */
+
+/* Mobile - Left sidebar drawer */
+@media (max-width: 768px) {
+  /* Hide right TOC on mobile */
+  .table-of-contents,
+  [class*="tableOfContents_"] {
+    display: none !important;
+  }
+
+  /* Left sidebar as drawer */
+  .theme-doc-sidebar-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 60px !important;
+    height: calc(100vh - 60px) !important;
+    z-index: 999 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    background: var(--bg-secondary) !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5) !important;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Show sidebar when toggled */
+  [class*="docSidebarContainer_"][class*="visible"] .theme-doc-sidebar-container,
+  .theme-doc-sidebar-container.mobile {
+    transform: translateX(0) !important;
+  }
+
+  /* Sidebar scrollbar visible */
+  .theme-doc-sidebar-container::-webkit-scrollbar {
+    width: 6px !important;
+  }
+
+  .theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+  }
+
+  /* Main content full width */
+  [class*="docItemCol_"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+  }
+
+  article[class*="docItemContainer"] {
+    max-width: 100% !important;
+    padding: 16px !important;
+  }
+
+  /* Content scrolls smoothly */
+  [class*="docMainContainer_"],
+  main,
+  #__docusaurus {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Typography for mobile */
+  .markdown h1 {
+    font-size: 24px !important;
+  }
+
+  .markdown h2 {
+    font-size: 20px !important;
+  }
+
+  .markdown p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .markdown code {
+    font-size: 12px !important;
+    padding: 12px !important;
+  }
+
+  /* Module cards stack vertically */
+  .module-card-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  .module-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Navbar mobile */
+  .navbar__items--right {
+    display: none !important;
+  }
+
+  .navbar__search {
+    display: none !important;
+  }
+}
+
+/* Small mobile - extra compact */
+@media (max-width: 480px) {
+  .markdown h1 {
+    font-size: 20px !important;
+  }
+
+  .markdown h2 {
+    font-size: 18px !important;
+  }
+
+  .markdown p {
+    font-size: 14px !important;
+  }
+
+  article[class*="docItemContainer"] {
+    padding: 12px !important;
+  }
+}

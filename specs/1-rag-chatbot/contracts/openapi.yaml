@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  description: API for the textbook RAG chatbot system
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+
+paths:
+  /api/chat/start:
+    post:
+      summary: Start a new conversation session
+      responses:
+        '200':
+          description: Successfully created a new session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                    description: Unique identifier for the conversation session
+        '500':
+          description: Internal server error
+
+  /api/chat/{sessionId}/question:
+    post:
+      summary: Submit a question to the chatbot
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: The session identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: The user's question
+                  example: "What is a ROS node?"
+              required:
+                - question
+      responses:
+        '200':
+          description: Successfully processed the question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The chatbot's response
+                  confidence:
+                    type: string
+                    enum: [HIGH, MEDIUM, LOW, NONE]
+                    description: Confidence level of the response
+                  sources:
+                    type: array
+                    items:
+                      type: string
+                    description: List of textbook sections used as sources
+        '400':
+          description: Invalid request
+        '404':
+          description: Session not found
+        '500':
+          description: Internal server error
+
+  /api/chat/{sessionId}/history:
+    get:
+      summary: Get conversation history for a session
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: The session identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved conversation history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        role:
+                          type: string
+                          enum: [USER, ASSISTANT]
+                        content:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+        '404':
+          description: Session not found
+        '500':
+          description: Internal server error
+
+  /api/chat/{sessionId}/end:
+    post:
+      summary: End a conversation session
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: The session identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully ended the session
+        '404':
+          description: Session not found
+        '500':
+          description: Internal server error

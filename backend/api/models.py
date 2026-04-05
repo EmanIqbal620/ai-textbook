@@ -1,21 +1,31 @@
+"""
+Pydantic Models for Chat API
+"""
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-from datetime import datetime
+from typing import Optional, List, Any
+
 
 class ChatRequest(BaseModel):
-    query: str
-    user_id: Optional[str] = None
-    max_tokens: Optional[int] = 1000
-    temperature: Optional[float] = 0.7
-    top_k: Optional[int] = 5
-    user_selected_text: Optional[str] = None
+    """Request model for chat endpoint."""
+    question: str
+    selected_text: Optional[str] = None
 
-class ChatResponse(BaseModel):
-    response: str
-    sources: List[Dict[str, Any]]
-    response_time: float
-    query: str
 
-class HealthResponse(BaseModel):
+class Source(BaseModel):
+    """Source reference from the textbook."""
+    chapter_name: str
+    source_url: str
+    score: float
+
+
+class ChatData(BaseModel):
+    """Response data for chat."""
+    answer: str
+    sources: List[Source] = []
+
+
+class APIResponse(BaseModel):
+    """API Response envelope."""
     status: str
-    timestamp: datetime
+    data: Optional[ChatData] = None
+    error: Optional[str] = None

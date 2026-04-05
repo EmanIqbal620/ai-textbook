@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TERMINAL CHAT WIDGET - Test Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      background: #0a0e1a;
+      color: #00d4ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 32px;
+      letter-spacing: 4px;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 2;
+    }
+
+    .status {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #00d4ff;
+      box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+      border-radius: 4px;
+      background: rgba(10, 14, 26, 0.8);
+    }
+
+    .status-online {
+      color: #06d6a0;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .feature {
+      margin: 10px 0;
+      font-size: 12px;
+    }
+
+    .feature::before {
+      content: '> ';
+      color: #06d6a0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TERMINAL CHAT WIDGET</h1>
+    <p>
+      HUMANOID ROBOTICS TEXTBOOK<br>
+      AI TUTOR TERMINAL INTERFACE
+    </p>
+    
+    <div class="status">
+      <p class="status-online">● SYSTEM ONLINE</p>
+      <div class="feature">Monospace font (Courier New)</div>
+      <div class="feature">Thin glowing borders (#00d4ff)</div>
+      <div class="feature">Grid background pattern</div>
+      <div class="feature">Sharp corners (4px radius)</div>
+      <div class="feature">Robot SVG icon with pulse glow</div>
+      <div class="feature">ONLINE indicator (blinking green)</div>
+      <div class="feature">HUMANOID.AI header</div>
+      <div class="feature">SYSTEM READY_ blinking cursor</div>
+      <div class="feature">Terminal-style messages</div>
+      <div class="feature">[CHAPTER-NAME] source chips</div>
+      <div class="feature">>> input prefix</div>
+      <div class="feature">EXECUTE send button</div>
+      <div class="feature">[ANALYZE SELECTION] toolbar</div>
+      <div class="feature">PROCESSING... typing indicator</div>
+      <div class="feature">Scan-line open animation</div>
+    </div>
+
+    <p style="margin-top: 40px;">
+      CLICK THE ROBOT BUTTON IN BOTTOM-RIGHT CORNER<br>
+      OR SELECT TEXT TO SEE ANALYSIS TOOLBAR
+    </p>
+  </div>
+
+  <!-- Load the terminal chat widget -->
+  <script src="chat-widget.js"></script>
+</body>
+</html>

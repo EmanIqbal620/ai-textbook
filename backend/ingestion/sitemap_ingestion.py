@@ -96,9 +96,9 @@ class SitemapIngestion:
 
             # Try to find main content areas typically used in Docusaurus
             content_selectors = [
-                'article', '.main-wrapper', '.theme-doc-markdown',
-                '.markdown', '.doc-content', '.docs-content',
-                '.main-content', 'main', '.container'
+                '.theme-doc-markdown', '.markdown', 'article', '.main-wrapper',
+                '.doc-content', '.docs-content', '.main-content', 'main', '.container',
+                '[class*="docItemContainer"]', '[class*="docRoot"]', '[class*="docItemCol"]'
             ]
 
             text_content = ""
@@ -120,8 +120,8 @@ class SitemapIngestion:
             logger.error(f"Failed to extract content from {url}: {str(e)}")
             return ""
 
-    def chunk_text(self, text: str, max_tokens: int = 500) -> List[str]:
-        """Chunk text into smaller pieces based on token count"""
+    def chunk_text(self, text: str, max_tokens: int = 700, overlap_tokens: int = 120) -> List[str]:
+        """Chunk text into smaller pieces based on token count with overlap"""
         # Split text into sentences or paragraphs
         sentences = text.split('\n')
         if len(sentences) == 1:  # If no newlines, split by sentences
@@ -131,7 +131,7 @@ class SitemapIngestion:
         current_chunk = ""
 
         for sentence in sentences:
-            # Estimate token count
+            # Estimate token count for current chunk + sentence
             token_count = len(self.enc.encode(current_chunk + " " + sentence))
 
             if token_count <= max_tokens:
@@ -139,8 +139,21 @@ class SitemapIngestion:
             else:
                 if current_chunk:  # If current chunk is not empty, save it
                     chunks.append(current_chunk.strip())
-                # Start a new chunk with the current sentence
-                current_chunk = sentence
+
+                # For overlap, keep some content from the end of the previous chunk
+                if overlap_tokens > 0 and chunks:
+                    # Get the last chunk and take the last overlap_tokens worth of content
+                    last_chunk_tokens = self.enc.encode(current_chunk)
+                    if len(last_chunk_tokens) > overlap_tokens:
+                        # Get the last 'overlap_tokens' tokens and decode them
+                        overlap_start_idx = max(0, len(last_chunk_tokens) - overlap_tokens)
+                        overlap_tokens_list = last_chunk_tokens[overlap_start_idx:]
+                        overlap_text = self.enc.decode(overlap_tokens_list)
+                        current_chunk = overlap_text + " " + sentence
+                    else:
+                        current_chunk = sentence
+                else:
+                    current_chunk = sentence
 
         # Add the last chunk if it's not empty
         if current_chunk:

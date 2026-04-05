@@ -232,7 +232,7 @@ class PostgresService:
             logger.error(f"Failed to get recent interactions: {str(e)}")
             raise
 
-    def is_healthy(self) -> bool:
+    async def is_healthy(self) -> bool:
         """
         Check if the Postgres connection is healthy.
         """

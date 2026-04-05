@@ -1,0 +1,101 @@
+# Feature Specification: RAG Chatbot for Textbook
+
+**Feature Branch**: `1-rag-chatbot`
+**Created**: 2025-12-25
+**Status**: Draft
+**Input**: User description: "Answer user questions about this book  Use only the content from the provided textbook (RAG)
+
+Inputs:
+- User questions from CLI or frontend chat
+- Retrieved book context chunks
+
+Outputs:
+- Clear, accurate answers based only on book content
+- Beginner-friendly explanations
+
+Constraints:
+- Must not use external knowledge outside the book
+- Must follow all rules defined in sp.constitution"
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - Ask Questions and Get Book-Based Answers (Priority: P1)
+
+A beginner robotics student wants to ask questions about the textbook content and receive accurate answers based only on the book's content, without any external information being mixed in.
+
+**Why this priority**: This is the core functionality of the chatbot - allowing students to get answers to their questions directly from the textbook content.
+
+**Independent Test**: The chatbot should accept a user question, retrieve relevant book context, and return an answer that is grounded in the book content only, following all constitution rules.
+
+**Acceptance Scenarios**:
+
+1. **Given** a user has a question about robotics concepts from the textbook, **When** they ask the question to the chatbot, **Then** the chatbot responds with an answer based only on the book content in simple, beginner-friendly language
+2. **Given** a user asks a question not covered in the textbook, **When** they submit the question to the chatbot, **Then** the chatbot responds with "This topic is not covered in the book yet."
+
+---
+
+### User Story 2 - Multi-turn Conversation Support (Priority: P2)
+
+A student wants to have a conversation with the chatbot, asking follow-up questions about the same topic without having to repeat context.
+
+**Why this priority**: Enhances the user experience by allowing more natural conversations with the chatbot.
+
+**Independent Test**: The chatbot should maintain context between related questions and provide coherent responses that build on previous exchanges.
+
+**Acceptance Scenarios**:
+
+1. **Given** a user has asked an initial question and received an answer, **When** they ask a follow-up question related to the same topic, **Then** the chatbot provides a relevant answer that considers the previous context
+2. **Given** a conversation has been going for several turns, **When** the user asks a question outside the book scope, **Then** the chatbot responds with "This topic is not covered in the book yet."
+
+---
+
+### User Story 3 - Source Attribution and Confidence (Priority: P3)
+
+A student wants to know where in the book the chatbot's answer came from, to reference the original content.
+
+**Why this priority**: Provides transparency and helps students locate the information in the actual textbook.
+
+**Independent Test**: The chatbot should be able to indicate which parts of the book were used to generate the response.
+
+**Acceptance Scenarios**:
+
+1. **Given** a user asks a question, **When** the chatbot provides an answer, **Then** the answer includes appropriate attribution to the source material without exposing internal retrieval steps
+2. **Given** the chatbot cannot find sufficient information in the book, **When** asked for a source, **Then** the chatbot responds with "This topic is not covered in the book yet."
+
+---
+
+### Edge Cases
+
+- What happens when the user asks about multiple topics in one question?
+- How does the system handle ambiguous questions that could refer to multiple book sections?
+- What happens when the retrieved context is insufficient to answer the question completely?
+- How does the system handle questions that require external knowledge or real-time information?
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: System MUST answer user questions using only content retrieved from the textbook knowledge base
+- **FR-002**: System MUST respond with "This topic is not covered in the book yet." when information is not available in the textbook
+- **FR-003**: Users MUST be able to ask questions through CLI or frontend chat interface
+- **FR-004**: System MUST provide beginner-friendly explanations using simple English
+- **FR-005**: System MUST NOT use external knowledge outside the book content
+- **FR-006**: System MUST follow all rules defined in the project constitution
+- **FR-007**: System MUST maintain conversation context for follow-up questions within the same session
+- **FR-008**: System MUST provide clear, accurate answers based on retrieved book context chunks
+
+### Key Entities
+
+- **User Question**: The input from the student asking about textbook content
+- **Retrieved Context**: Book content chunks retrieved by the RAG system that are relevant to the question
+- **Chatbot Response**: The answer generated by the system based on the retrieved context, following constitution rules
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: 95% of user questions receive responses that are grounded in textbook content only
+- **SC-002**: 90% of users report that answers are clear and beginner-friendly
+- **SC-003**: Users can get accurate answers to textbook questions within 5 seconds of asking
+- **SC-004**: 0% of responses contain information not found in the textbook
+- **SC-005**: 80% of follow-up questions are answered coherently within the same conversation thread

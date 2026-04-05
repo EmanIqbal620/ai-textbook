@@ -2,6 +2,12 @@
 
 This is a production-ready Retrieval-Augmented Generation (RAG) chatbot using the OpenAI Agents SDK and FastAPI that can answer questions about the humanoid robotics textbook.
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/new?template=https://github.com/YOUR_REPO)
+
+## Quick Deploy to Railway
+
+See [RAILWAY_DEPLOY.md](RAILWAY_DEPLOY.md) for complete deployment instructions.
+
 ## Prerequisites
 
 - Python 3.11+
@@ -102,4 +108,5 @@ docker run -p 8000:8000 \
 - Set appropriate environment variables for production
 - Configure reverse proxy (nginx, etc.) for SSL termination
 - Set up proper logging aggregation
-- Configure monitoring and alerting
+- Configure monitoring and alerting"# rag-chatbot" 
+"# rag-chatbot"  

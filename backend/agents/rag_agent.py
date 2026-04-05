@@ -73,6 +73,65 @@ class RAGAgent:
         self.embedding_service = EmbeddingService()
 
 
+    def _clean_response(self, response: str) -> str:
+        """
+        Clean up the response to remove markdown formatting and organize it better.
+        """
+        import re
+
+        # Remove ALL markdown formatting - brute force approach
+        cleaned = response
+
+        # Multiple passes to ensure all markdown is removed
+        for _ in range(3):
+            # Remove bold markdown (**text** and __text__)
+            cleaned = re.sub(r'\*\*([^*]+)\*\*', r'\1', cleaned)
+            cleaned = re.sub(r'__([^_]+)__', r'\1', cleaned)
+            # Remove italic markdown (*text* and _text_)
+            cleaned = re.sub(r'\*([^\*]+)\*', r'\1', cleaned)
+            cleaned = re.sub(r'_([^\_]+)_', r'\1', cleaned)
+
+        # Final pass - remove any remaining markdown characters
+        cleaned = cleaned.replace('**', '').replace('__', '').replace('*', '').replace('_', '')
+
+        # Remove markdown headings
+        cleaned = re.sub(r'^#{1,6}\s*', '', cleaned, flags=re.MULTILINE)
+
+        # Replace markdown lists with bullet points
+        cleaned = re.sub(r'\n\d+\.\s+', r'\n• ', cleaned)  # Ordered lists to bullet points
+        cleaned = re.sub(r'\n[-+]\s+', r'\n• ', cleaned)  # Unordered lists
+
+        # Clean up whitespace
+        cleaned = re.sub(r'\n\s*\n', r'\n\n', cleaned)  # Normalize paragraph breaks
+        cleaned = re.sub(r'  +', ' ', cleaned)  # Normalize spaces
+        cleaned = cleaned.strip()
+
+        # Limit length for conciseness
+        lines = cleaned.split('\n')
+        if len(lines) > 10:
+            cleaned = '\n'.join(lines[:10])
+
+        return cleaned
+
+
+    def _format_sources(self, sources: List[Dict]) -> List[Dict]:
+        """
+        Format sources to be more organized and readable.
+        """
+        formatted_sources = []
+        for i, source in enumerate(sources):
+            # Create a more readable source description
+            formatted_source = {
+                'id': source.get('id', ''),
+                'source': source.get('source', ''),
+                'score': source.get('score', 0),
+                'page_content': source.get('page_content', '')[:200],  # Keep truncation
+                'reference': f"Source {i+1}"  # Add a more organized reference
+            }
+            formatted_sources.append(formatted_source)
+        return formatted_sources
+
+
     async def process_query(
         self,
         query: str,
@@ -97,8 +156,8 @@ class RAGAgent:
         try:
             logger.info(f"Processing query: {query[:100]}...")
 
-            # Retrieve relevant context from vector store
-            retrieved_context = await self.qdrant_retriever.search(query, top_k=top_k)
+            # Retrieve relevant context from vector store with specified top_k
+            retrieved_context = await self.qdrant_retriever.search(query, top_k=5)  # Fixed to 5 as per requirements
 
             # Combine query context with user-selected text if provided
             combined_context = ""
@@ -116,20 +175,24 @@ class RAGAgent:
                     'page_content': doc.get('content', '')[:200]  # Truncate for brevity
                 })
 
-            # Create a prompt for the LLM
-            llm_prompt = f"""You are an expert assistant for the Humanoid Robotics AI textbook. Answer the user's question based on the following context:
+            # Create a prompt for the LLM with strict rules
+            llm_prompt = f"""You are an expert assistant for the Physical AI & Humanoid Robotics textbook. Answer the user's question based ONLY on the following context from the book:
 
             CONTEXT:
             {combined_context}
 
             USER QUESTION: {query}
 
-            INSTRUCTIONS:
-            1. Base your answer on the provided context
-            2. If the context doesn't contain enough information, say so clearly
-            3. Be precise and technical when discussing robotics concepts
-            4. Reference specific parts of the context when possible
-            5. Maintain a professional academic tone
+            STRICT RULES:
+            1. Answer ONLY from the provided book context
+            2. Do NOT use general knowledge
+            3. Do NOT hallucinate
+            4. If the answer is not found in the book, reply EXACTLY: "This information is not available in the book."
+            5. Keep answers short and book-accurate (aim for 2-3 paragraphs maximum)
+            6. Reference specific parts of the book context when possible
+            7. Maintain a professional academic tone
+            8. DO NOT use any markdown formatting like **, *, __, #, etc. - return plain text only
+            9. Organize information with clear structure and logical flow
 
             ANSWER:"""
 
@@ -188,9 +251,15 @@ class RAGAgent:
                 else:
                     assistant_response = "No LLM provider is available to generate a response. Please check that at least one of the following is properly configured: OPENROUTER_API_KEY, GOOGLE_API_KEY, or COHERE_API_KEY."
 
+            # Clean up the response to remove markdown formatting and make it concise
+            cleaned_response = self._clean_response(assistant_response)
+
+            # Format sources to be more organized
+            formatted_sources = self._format_sources(sources)
+
             result = {
-                "response": assistant_response,
-                "sources": sources,
+                "response": cleaned_response,
+                "sources": formatted_sources,
                 "context": combined_context,
                 "query": query
             }
